@@ -1,0 +1,32 @@
+┌──────────────────────────────────────────────────────────┐
+│                      Client Browser                      │
+│                                                          │
+│  ┌──────────────┐  ┌──────────────────────────────────┐  │
+│  │ ChatSidebar  │  │ ChatView (768px centered column) │  │
+│  │ - History    │  │ - TopBar (Model & Persona pick)  │  │
+│  │ - Search     │  │ - MessageList (Text & Images)    │  │
+│  │ - New Chat   │  │ - InputBar (Text/Voice/ImageMode)│  │
+│  └──────┬───────┘  └────────────────┬─────────────────┘  │
+│         │                           │                    │
+│         │     localStorage State    │                    │
+│         └──────────────┬────────────┘                    │
+└────────────────────────┼─────────────────────────────────┘
+                         │
+        ┌────────────────┴────────────────┐
+        │ /api/chat/stream (SSE)          │ /api/generate-image
+        ▼                                 ▼
+┌──────────────────────────────────────────────────────────┐
+│                  Express Backend Server                  │
+│                                                          │
+│  • GoogleGenAI client (User-Agent: aistudio-build)       │
+│  • Streaming chat controller                             │
+│  • Image generation controller                           │
+└────────────────────────┬─────────────────────────────────┘
+                         │
+        ┌────────────────┴────────────────┐
+        │                                 │
+        ▼                                 ▼
+┌────────────────────────┐      ┌──────────────────────────┐
+│ gemini-3.8-flash       │      │ gemini-3.1-flash-lite-   │
+│ (Chat & Reasoning)     │      │ image (Image Studio)     │
+└────────────────────────┘      └──────────────────────────┘
